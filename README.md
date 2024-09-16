@@ -15,3 +15,12 @@ import {BrowserRouter} from "react-router-dom";
   <APP />
 </BrowserRouter>
 ```
+
+- Params
+```tsx
+<Route path="/example/:id" />
+
+// component
+const params = useParams();
+console.log(params);
+```
