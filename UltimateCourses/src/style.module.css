@@ -1,0 +1,74 @@
+.app {
+    width: 300px;
+    margin: 50px auto;
+    padding: 4px;
+    background-color: gainsboro;
+}
+
+
+.nav {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+
+    a {
+        text-decoration: none;
+        color: rgb(11, 11, 11);
+    }
+}
+
+
+.adminHeader {
+    display: flex;
+    align-items: center;  
+}
+
+.adminNew {
+    text-decoration: none;
+    color: white;
+    border: 2px solid white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+.productEdit {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    background: #2a2c37;
+    border-radius: 6px;
+    padding: 15px;
+}
+
+.productEditInput {
+    flex: 1;
+    border: 1px solid transparent;
+    color: #fff;
+    background: #1d1e26;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    outline: 0;
+    &:focus {
+        border-color: #50fa7b;
+    }
+}
+
+.productEditTextArea {
+    min-height: 80px;
+    resize: none;
+}
+
+.productEditButton {
+    border: 2px solid #50fa7b;
+    color: #50fa7b;
+    background: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    outline: 0;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+}
