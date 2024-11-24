@@ -24,3 +24,7 @@ import {BrowserRouter} from "react-router-dom";
 const params = useParams();
 console.log(params);
 ```
+
+
+- 3 part
+1. mirage js
