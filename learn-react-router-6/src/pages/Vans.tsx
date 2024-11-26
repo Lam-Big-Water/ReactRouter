@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styles from "./Vans.module.css";
 
 export type VansType = {
   id: string;
@@ -19,21 +20,25 @@ const Vans = () => {
       .then((data) => setVans(data));
   }, []);
 
+  const vanElements = vans.map(van => (
+    <div key={van.id} className={styles.vanTitle}>
+      <Link to={`/vans/${van.id}`}>
+        <img src={van.imageUrl} alt={van.name} />
+        <div className={styles.vanInfo}>
+          <h3>{van.name}</h3>
+          <p>${van.price}<span>/day</span></p>
+        </div>
+        <i className={`van-type ${van.type}`}>{van.type}</i>
+      </Link>
+    </div>
+  ))
+
   return (
-    <div>
-      <ul>
-        {vans.map((van) => (
-          <li key={van.id}>
-            <Link to={van.id}>
-              <img src={van.imageUrl} alt={van.name} width={100} height={100} />
-              <p>{van.name}</p>
-              <p>{van.price}</p>
-              <p>{van.description}</p>
-              <p>{van.type}</p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div className={styles.vanListContainer}>
+      <h1>Explore our van options</h1>
+      <div className={styles.vanList}>
+        {vanElements}
+      </div>
     </div>
   );
 };
