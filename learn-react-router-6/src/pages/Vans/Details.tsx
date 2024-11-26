@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 const Details = () => {
   const param = useParams();
   const navigate = useNavigate();
-  console.log(param);
   const [detail, setDetail] = useState<VansType | null>(null);
 
   useEffect(() => {
     fetch(`http://localhost:8000/vans/${param.id}`)
       .then((res) => res.json())
       .then((data) => setDetail(data));
-  }, []);
+  }, [param.id]);
+
   return (
     <>
       {detail ? (
