@@ -1,0 +1,10 @@
+.hostNav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    a {
+        color: #161616;
+        text-decoration: none;
+    }
+}
