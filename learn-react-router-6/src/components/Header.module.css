@@ -15,6 +15,12 @@
         color: #161616;
         text-decoration: underline;
     }
+
+    .myLink {
+        font-weight: bold;
+        text-decoration: none;
+        color: red;
+    }
 }
 
 .siteLogo {
@@ -24,3 +30,4 @@
     font-weight: 900;
     font-size: 25px;
 }
+
