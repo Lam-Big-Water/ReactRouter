@@ -18,8 +18,7 @@
 
     .myLink {
         font-weight: bold;
-        text-decoration: none;
-        color: red;
+        text-decoration: underline;
     }
 }
 

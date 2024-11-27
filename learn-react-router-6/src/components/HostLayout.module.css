@@ -7,4 +7,9 @@
         color: #161616;
         text-decoration: none;
     }
+
+    .myLink {
+        font-weight: bold;
+        text-decoration: underline;
+    }
 }
