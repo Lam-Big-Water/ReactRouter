@@ -1,11 +1,12 @@
 import { useOutletContext } from "react-router-dom";
 import { VansType } from "../Vans/Vans";
+import styles from "./HostVansInfo.module.css"
 
 const HostVansInfo = () => {
   const  {currentVan}  = useOutletContext<{currentVan: VansType}>();
   return (
     <>
-      {currentVan && <section className="hostVanDetailInfo">
+     <section className={styles.hostVanDetailInfo}>
       <h4>
         Name: <span>{currentVan.name}</span>
       </h4>
@@ -18,7 +19,7 @@ const HostVansInfo = () => {
       <h4>
         Visibility: <span>Public</span>
       </h4>
-    </section>}
+    </section>
     </>
   );
 };

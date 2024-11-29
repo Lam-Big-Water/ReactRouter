@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import styles from "./Vans.module.css";
 
 export type VansType = {
@@ -12,7 +12,10 @@ export type VansType = {
 };
 
 const Vans = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [vans, setVans] = useState<VansType[]>([]);
+
+  const typeFilter = searchParams.get("type");
 
   useEffect(() => {
     fetch(`http://localhost:8000/vans`)
@@ -20,9 +23,14 @@ const Vans = () => {
       .then((data) => setVans(data));
   }, []);
 
-  const vanElements = vans.map(van => (
+  const displayedVans = typeFilter
+    ? vans.filter(van => van.type === typeFilter)
+    : vans;
+
+
+  const vanElements = displayedVans.map(van => (
     <div key={van.id} className={styles.vanTitle}>
-      <Link to={`/vans/${van.id}`}>
+      <Link to={van.id} state={{search: `?${searchParams.toString()}`, type: typeFilter}}>
         <img src={van.imageUrl} alt={van.name} />
         <div className={styles.vanInfo}>
           <h3>{van.name}</h3>
@@ -33,9 +41,35 @@ const Vans = () => {
     </div>
   ))
 
+  function handleFilterChange (key: string, value: string | null) {
+    setSearchParams(prevParams => {
+      if (value === null) {
+        prevParams.delete(key);
+      } else {
+        prevParams.set(key, value)
+      }
+      console.log(prevParams.toString())
+      return prevParams
+    })
+  }
+
   return (
     <div className={styles.vanListContainer}>
       <h1>Explore our van options</h1>
+      <div className="vanListFilterButtons">
+        <button className="van-type" onClick={() => handleFilterChange("type", "simple")}>
+          Simple
+        </button>
+        <button className="van-type" onClick={() => handleFilterChange("type", "luxury")}>
+          Luxury
+        </button>
+        <button className="van-type" onClick={() => handleFilterChange("type", "rugged")}>
+          Rugged
+        </button>
+        <button className="van-type" onClick={() => handleFilterChange("type", null)}>
+          Clear filter
+        </button>
+      </div>
       <div className={styles.vanList}>
         {vanElements}
       </div>
