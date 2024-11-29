@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import styles from "./Vans.module.css";
+import { getVans } from "../../fetch";
 
 export type VansType = {
   id: string;
@@ -14,13 +15,25 @@ export type VansType = {
 const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [vans, setVans] = useState<VansType[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [erroring, setErroring] = useState<null | any>(null);
 
   const typeFilter = searchParams.get("type");
 
   useEffect(() => {
-    fetch(`http://localhost:8000/vans`)
-      .then((res) => res.json())
-      .then((data) => setVans(data));
+    async function loadVans() {
+      setLoading(true);
+      try {
+        const data = await getVans(`http://localhost:8000/vanst`);
+        setVans(data);
+      } catch (err: any) {
+        setErroring(err)
+      } finally {
+        setLoading(false)
+      }      
+    }
+    loadVans()
+
   }, []);
 
   const displayedVans = typeFilter
@@ -51,6 +64,14 @@ const Vans = () => {
       console.log(prevParams.toString())
       return prevParams
     })
+  }
+
+  if (loading) {
+    return <h1>Loading...</h1>
+  }
+
+  if (erroring) {
+    return <h1>There was an error: {erroring.message}</h1>
   }
 
   return (
