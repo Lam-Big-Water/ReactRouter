@@ -1,0 +1,31 @@
+.vanListContainer {
+    max-width: 1250px;
+    margin: auto;
+    padding-inline: 23px;
+
+    button {
+        margin-right: 20px;
+        cursor: pointer;
+    }
+}
+
+.vanList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    gap: 34px;
+    margin-top: 57px;
+}
+
+.vanTitle {
+    a {
+        color: #161616;
+        text-decoration: none;
+    }
+
+    img {
+        max-width: 100%;
+        border-radius: 5px;
+    }
+}
+
