@@ -1,23 +1,19 @@
-import { useParams, Link, useLocation } from "react-router-dom";
-import { VansType } from "./Vans";
-import { useEffect, useState } from "react";
+import { Link, useLocation, useLoaderData } from "react-router-dom";
+import { getVans } from "../../fetch";
 import styles from "./Details.module.css";
 
-const Details = () => {
-  const param = useParams();
-  const location = useLocation();
-  console.log(location);
-  
-  const [detail, setDetail] = useState<VansType | null>(null);
 
-  useEffect(() => {
-    fetch(`http://localhost:8000/vans/${param.id}`)
-      .then((res) => res.json())
-      .then((data) => setDetail(data));
-  }, [param.id]);
+// confusing
+export function loader(params: any) {
+  console.log(params)
+  return getVans(params.id)
+}
+
+const Details = () => {
+  const location = useLocation();
+  const detail = useLoaderData();
 
   const search = location.state?.search || "";
-  console.log(`search ${search}`)
   const type = location.state?.type || "all";
 
   const detailsElement = (

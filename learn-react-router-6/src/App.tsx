@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import Vans, {loader as vansLoader} from "./pages/Vans/Vans";
-import Details from "./pages/Vans/Details";
+import Details, {loader as vansDetailLoader} from "./pages/Vans/Details";
 
 import HostLayout from "./components/HostLayout";
 import Dashboard from "./pages/Host/Dashboard";
@@ -17,6 +17,9 @@ import Layout from "./components/Layout";
 import HostVansInfo from "./pages/Host/HostVansInfo";
 import HostVansPrice from "./pages/Host/HostVansPrice";
 import HostVansPhoto from "./pages/Host/HostVansPhoto";
+
+import Login from "./pages/Login";
+import { requireAuth } from "./utils";
 
 import Error from "./components/Error";
 
@@ -34,6 +37,10 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
+        path: "login",
+        element: <Login />,
+      },
+      {
         path: "vans",
         element: <Vans />,
         errorElement: <Error />,
@@ -42,6 +49,7 @@ const router = createBrowserRouter([
       {
         path: "vans/:id",
         element: <Details />,
+        loader: vansDetailLoader
       },
 
       {
@@ -51,14 +59,19 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Dashboard />,
+            loader:async () => await requireAuth()
           },
           {
             path: "income",
             element: <Income />,
+            loader:async () => await requireAuth()
+
           },
           {
             path: "reviews",
             element: <Reviews />,
+            loader:async () => await requireAuth()
+
           },
           {
             path: "vans",

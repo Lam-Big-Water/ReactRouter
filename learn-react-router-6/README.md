@@ -69,3 +69,22 @@ Can createRoutesFromElements() to make the transition a bit easier.
   1. Define and export a loader function.
   2. Import the loader and pass it to the route we're wanting to fetch data for.
   3. Use the useLoaderData() hook to get the data from the loader function.
+
+
+# lesson 4 - Protected Routes Quiz
+
+1. How did we change our route definitions in order to "protect"
+   certain routes from an un-logged-in user?
+Wrapped the routes we wanted to protect in a Layout route that contains logic
+to redirect someone if they're not logged in.
+
+2. What component can we use to automatically send someone
+    to a different route in our app?
+```js
+<Navigate to="/login" />
+```
+
+3. What component can we render if the user Is logged in?
+```js
+<Outlet />
+```

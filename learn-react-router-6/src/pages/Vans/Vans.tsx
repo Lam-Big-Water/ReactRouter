@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useSearchParams, useLoaderData } from "react-router-dom";
 import styles from "./Vans.module.css";
 import { getVans } from "../../fetch";
@@ -14,15 +14,14 @@ export type VansType = {
 
 
 export function loader() {
-  return getVans(`http://localhost:8000/vans`);
+  return getVans();
 }
 
 const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [erroring, setErroring] = useState<null | any>(null);
+  const [erroring, setErroring] = useState<null | Error>(null);
   
   const vans = useLoaderData<VansType[]>();
-  console.log(vans)
 
   const typeFilter = searchParams.get("type");
 
