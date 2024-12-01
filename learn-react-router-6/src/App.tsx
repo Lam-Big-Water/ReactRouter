@@ -1,4 +1,4 @@
-import { Routes, Route, createBrowserRouter,  RouterProvider} from "react-router-dom";
+import {createBrowserRouter,  RouterProvider} from "react-router-dom";
 
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -8,8 +8,8 @@ import Details, {loader as vansDetailLoader} from "./pages/Vans/Details";
 
 import HostLayout from "./components/HostLayout";
 import Dashboard from "./pages/Host/Dashboard";
-import HostVans from "./pages/Host/HostVans";
-import HostVansDetail from "./pages/Host/HostVansDetail";
+import HostVans, {loader as HostVansLoader} from "./pages/Host/HostVans";
+import HostVansDetail, {loader as HostVansDetailLoader} from "./pages/Host/HostVansDetail";
 import Income from "./pages/Host/Income";
 import Reviews from "./pages/Host/Reviews";
 
@@ -22,6 +22,7 @@ import Login from "./pages/Login";
 import { requireAuth } from "./utils";
 
 import Error from "./components/Error";
+
 
 const router = createBrowserRouter([
   {
@@ -59,39 +60,47 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Dashboard />,
-            loader:async () => await requireAuth()
+            loader: async () => await requireAuth()
           },
           {
             path: "income",
             element: <Income />,
-            loader:async () => await requireAuth()
+            loader: async () => await requireAuth()
 
           },
           {
             path: "reviews",
             element: <Reviews />,
-            loader:async () => await requireAuth()
+            loader: async () => await requireAuth()
 
           },
           {
             path: "vans",
             element: <HostVans />,
+            loader: HostVansLoader,
           },
           {
             path: "vans/:id",
             element: <HostVansDetail />,
+            loader: HostVansDetailLoader,
             children: [
               {
                 index: true,
                 element: <HostVansInfo />,
+                loader: async () => await requireAuth()
+
               },
               {
                 path: "pricing",
                 element: <HostVansPrice />,
+                loader: async () => await requireAuth()
+
               },
               {
                 path: "photos",
                 element: <HostVansPhoto />,
+                loader: async () => await requireAuth()
+
               }
             ]
           },

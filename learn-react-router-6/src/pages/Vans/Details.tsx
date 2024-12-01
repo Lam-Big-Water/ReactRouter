@@ -4,7 +4,7 @@ import styles from "./Details.module.css";
 
 
 // confusing
-export function loader(params: any) {
+export function loader({params}: any) {
   console.log(params)
   return getVans(params.id)
 }

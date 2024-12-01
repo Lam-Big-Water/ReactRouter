@@ -1,20 +1,21 @@
-import { useState, useEffect } from "react"
-import { Link } from "react-router-dom";
-import { VansType } from "../Vans/Vans";
+import { Link, useLoaderData } from "react-router-dom";
 import styles from "./HostVans.module.css";
+import { VansType } from "../Vans/Vans";
+
+
+import { getHostVans } from "../../fetch";
+import { requireAuth } from "../../utils";
+
+export async function loader() {
+  await requireAuth();
+  return getHostVans();
+}
 
 
 const HostVans = () => {
+  const vans = useLoaderData<VansType[]>();
 
-  const [vans, setVans] = useState<VansType[]>([]);
-
-  useEffect(() => {
-    fetch(`http://localhost:8000/vans`)
-      .then((res) => res.json())
-      .then((data) => setVans(data));
-  }, [])
-
-  const HostVans = vans.map(van => (
+  const hostVans = vans.map(van => (
     <Link 
       to={van.id}
       key={van.id}
@@ -37,7 +38,7 @@ const HostVans = () => {
         {
           vans.length > 0 ? (
             <section>
-              {HostVans}
+              {hostVans}
             </section>
           ) : (
             <h2>Loading...</h2>

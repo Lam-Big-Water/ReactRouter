@@ -16,5 +16,13 @@
         "imageUrl": "https://assets.scrimba.com/advanced-react/react-router/beach-bum.png",
         "type": "rugged"
     }
+  ],
+
+  "user": [
+    {
+      "id": 1,
+      "email": "Sam@com",
+      "password": "123"
+    }
   ]
 }
