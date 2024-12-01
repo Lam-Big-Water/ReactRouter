@@ -36,7 +36,6 @@ const router = createBrowserRouter(createRoutesFromElements(
       path="login"
       element={<Login />}
       loader={loginLoader}
-      // confusing
       action={loginAction}
     />
     <Route
