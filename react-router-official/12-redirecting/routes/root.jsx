@@ -1,4 +1,4 @@
-import { Outlet, NavLink, useLoaderData, Form, redirect, useNavigation } from "react-router-dom";
+import { Outlet, Link, useLoaderData, Form, redirect } from "react-router-dom";
 import { getContacts, createContact } from "../contacts";
 
 export async function action() {
@@ -6,17 +6,13 @@ export async function action() {
   return redirect(`/contacts/${contact.id}/edit`);
 }
 
-export async function loader({request}) {
-  const url = new URL(request.url);
-  const q = url.searchParams.get("q");
-  const contacts = await getContacts(q);
+export async function loader() {
+  const contacts = await getContacts();
   return { contacts };
 }
 
 export default function Root() {
   const { contacts } = useLoaderData();
-  const navigation = useNavigation();
-
   return (
     <>
       <div id="sidebar">
@@ -42,16 +38,7 @@ export default function Root() {
             <ul>
               {contacts.map((contact) => (
                 <li key={contact.id}>
-                  <NavLink 
-                  to={`contacts/${contact.id}`}
-                  className={({isActive, isPending}) => 
-                    isActive
-                      ? "active"
-                      : isPending
-                      ? "pending"
-                      : ""
-                    }
-                  >
+                  <Link to={`contacts/${contact.id}`}>
                     {contact.first || contact.last ? (
                       <>
                         {contact.first} {contact.last}
@@ -60,7 +47,7 @@ export default function Root() {
                       <i>No Name</i>
                     )}{" "}
                     {contact.favorite && <span>★</span>}
-                  </NavLink>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -71,12 +58,7 @@ export default function Root() {
           )}
         </nav>
       </div>
-      <div 
-        id="detail"
-        className={
-          navigation.state === "loading" ? "loading" : ""
-        }
-      >
+      <div id="detail">
         <Outlet />
       </div>
     </>
